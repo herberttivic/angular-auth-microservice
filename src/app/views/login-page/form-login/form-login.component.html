@@ -1,0 +1,30 @@
+<form [formGroup]="form" (ngSubmit)="handleSubmit()">
+  <mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+    <input formControlName="email" type="email" matInput placeholder="Ex: nome@email.com">
+    <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+    <!-- <mat-hint>Hint</mat-hint> -->
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Senha</mat-label>
+    <input formControlName="senha" type="password" matInput placeholder="Ex: Abc123#">
+    <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+    <!-- <mat-hint>Hint</mat-hint> -->
+  </mat-form-field>
+  <p>{{form.value | json}}</p>
+  <a class="esqueceu-email" href="#">Esqueceu seu email?</a>
+  <div class="btn-container">
+
+    <button type="button" mat-stroked-button class="google-button">
+      <div class="text-button-container">
+        <img height="20px" src="/images/icons/icons-google.svg" alt="google icon">
+        <span>Entrar com o <b>Google</b></span>
+      </div>
+    </button>
+
+    <button disabled mat-flat-button class="gov-button">Entrar com o <b>gov.br</b></button>
+    <button type="button" mat-button>Criar contar</button>
+    <button type=" submit" mat-flat-button color="accent">Entrar</button>
+  </div>
+</form>

@@ -1,0 +1,19 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  .card-container {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-direction: row;
+    padding: 1.25rem;
+  }
+
+  .form-container {
+    padding-top: 5rem;
+    padding-bottom: 2.5rem;
+  }
+}

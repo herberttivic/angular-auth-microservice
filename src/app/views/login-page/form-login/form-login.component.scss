@@ -1,0 +1,51 @@
+:host {
+  form {
+    width: 100%;
+    min-width: 500px;
+  }
+  mat-card {
+    margin: 1rem;
+  }
+
+  mat-card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+  }
+
+  mat-form-field {
+    width: 100%;
+    max-width: 700px;
+  }
+
+  .btn-container {
+    padding-top: 2.5rem;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+
+  .esqueceu-email {
+    text-decoration: none;
+    font-weight: 500;
+    color: rgb(25, 90, 212);
+    font-size: 14px;
+  }
+  .gov-button {
+    background-color: rgb(255, 136, 0);
+    color: rgb(53, 32, 0);
+  }
+
+  .text-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
+
+    img {
+      padding-bottom: 0.5px;
+    }
+  }
+}
