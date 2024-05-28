@@ -6,3 +6,9 @@ export class FormLoginDto {
   email: string;
   senha: string;
 }
+
+export class LoginResponseDto {
+  access_token!: string;
+
+  constructor() {}
+}

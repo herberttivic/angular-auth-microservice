@@ -1,35 +1,36 @@
 import { Injectable } from '@angular/core';
-import { LoginFormService } from '../services/login-form.service';
-import { FormLoginDto } from '../dtos/form-login-dto';
-import {
-  HttpGet,
-  HttpPost,
-  HttpPut,
-  HttpResponse,
-  JSONData,
-  Quark,
-  Url,
-} from 'sol-request-angular/dist/comunicacao';
-import { environment } from '../../environments/environment';
+import { FormLoginService } from '../services/form-login-service/form-login.service';
+import { FormLoginDto, LoginResponseDto } from '../dtos/form-login-dto';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth-service/auth-service.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginFormController {
-  constructor(private service: LoginFormService) {}
+  constructor(
+    private loginService: FormLoginService,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
-  async login(form: FormLoginDto) {
-    const data = this.service.requestAdapter(form);
-    let quark = new Quark(
-      new HttpPost({
-        url: new Url({
-          id: 'auth/login',
-          environment: environment,
-        }),
-        data: new JSONData(data),
-      }),
-      new HttpResponse(FormLoginDto)
-    );
-    return await quark.call();
+  async login(form: FormLoginDto): Promise<LoginResponseDto> {
+    const response = await this.loginService.login(form);
+    this.authService.salvaDadosLogin(response);
+    this.router.navigate(['/home']);
+    return response;
+  }
+
+  async logout() {
+    this.authService.limpaDados();
+    this.router.navigate(['/']);
+  }
+
+  async verify(token: string): Promise<void> {
+    try {
+      this.loginService.verifyToken(token);
+    } catch (error) {
+      this.logout();
+    }
   }
 }

@@ -3,6 +3,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatIcon } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   FormBuilder,
   FormsModule,
@@ -10,9 +11,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
-import { FormLoginDto } from '../../../dtos/form-login-dto';
 import { LoginFormController } from '../../../controllers/login-form.controller';
-
+import { validateFormLogin } from '../../../../tools/utils/validators/form-login-validate';
 @Component({
   selector: 'app-form-login',
   standalone: true,
@@ -31,31 +31,29 @@ import { LoginFormController } from '../../../controllers/login-form.controller'
 export class FormLoginComponent {
   constructor(
     private fb: FormBuilder,
-    private controller: LoginFormController
+    private controller: LoginFormController,
+
+    private _snackBar: MatSnackBar
   ) {}
   form = this.fb.group({
     email: this.fb.control('', Validators.required),
     senha: this.fb.control('', Validators.required),
   });
 
-  handleSubmit() {
-    const validForm = this.validate();
+  async handleSubmit() {
+    const validForm = validateFormLogin(this.form);
     if (!validForm) {
       return;
     }
-    this.controller.login(validForm);
+    try {
+      await this.controller.login(validForm);
+    } catch (error: any) {
+      const message = error?.message || 'Erro inesperado ao fazer o login.';
+      this.alertError(message);
+    }
   }
 
-  validate(): FormLoginDto | null {
-    const { email, senha } = this.form.value;
-    if (!email) {
-      return null;
-    }
-
-    if (!senha || senha.length < 6) {
-      return null;
-    }
-
-    return { email, senha };
+  alertError(message: string) {
+    this._snackBar.open(message, 'OK');
   }
 }

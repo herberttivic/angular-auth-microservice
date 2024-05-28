@@ -7,7 +7,7 @@
   window["env"]["host"] = "localhost";
   window["env"]["encryptType"] = "";
   window["env"]["saltMD5"] = "da60e688f2bde108014c5609ff2ab464";
-  window["env"]["port"] = "3000";
+  window["env"]["port"] = "3001";
   window["env"]["context"] = "api";
   window["env"]["timeout"] = 20000;
 })(this);
