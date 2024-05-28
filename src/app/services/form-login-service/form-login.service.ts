@@ -21,7 +21,7 @@ export class FormLoginService {
     let quark = new Quark(
       new HttpPost({
         url: new Url({
-          id: '/login',
+          id: 'login',
           environment: environment,
         }),
         data: new JSONData(data),

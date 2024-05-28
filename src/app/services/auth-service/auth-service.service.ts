@@ -1,6 +1,5 @@
-import { Injectable, inject } from '@angular/core';
+import { Inject, Injectable, forwardRef, inject } from '@angular/core';
 import { LoginResponseDto } from '../../dtos/form-login-dto';
-import { LoginFormController } from '../../controllers/login-form.controller';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +7,6 @@ import { LoginFormController } from '../../controllers/login-form.controller';
 export class AuthService {
   private access_token!: string | null;
   private token_key = 'access_token';
-  private loginController = inject(LoginFormController);
 
   constructor() {}
 
@@ -25,12 +23,15 @@ export class AuthService {
     localStorage.removeItem(this.token_key);
   }
 
-  resgataDadosLocalStorage() {
+  resgataDadosLocalStorage(
+    verify: (token: string) => Promise<void>,
+    logout: () => Promise<void>
+  ) {
     const tokenRecuperado = localStorage.getItem(this.token_key);
     if (tokenRecuperado) {
-      this.loginController.verify(tokenRecuperado);
+      verify(tokenRecuperado);
     } else {
-      this.loginController.logout();
+      logout();
     }
   }
 

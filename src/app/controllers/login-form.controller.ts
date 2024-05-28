@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, forwardRef } from '@angular/core';
 import { FormLoginService } from '../services/form-login-service/form-login.service';
 import { FormLoginDto, LoginResponseDto } from '../dtos/form-login-dto';
 import { Router } from '@angular/router';
@@ -11,6 +11,7 @@ export class LoginFormController {
   constructor(
     private loginService: FormLoginService,
     private router: Router,
+    @Inject(forwardRef(() => AuthService))
     private authService: AuthService
   ) {}
 

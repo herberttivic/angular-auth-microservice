@@ -9,6 +9,10 @@ export class FormLoginDto {
 
 export class LoginResponseDto {
   access_token!: string;
+  constructor() {}
+}
 
+export class UsuarioFromJwt {
+  access_token!: string;
   constructor() {}
 }

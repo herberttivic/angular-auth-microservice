@@ -32,7 +32,6 @@ export class FormLoginComponent {
   constructor(
     private fb: FormBuilder,
     private controller: LoginFormController,
-
     private _snackBar: MatSnackBar
   ) {}
   form = this.fb.group({
